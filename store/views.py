@@ -23,3 +23,8 @@ def category_list(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     product = Product.objects.filter(category=category)
     return render(request, "store/products/category.html", {"category": category, "products": product})
+
+
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    return render(request, "store/products/detail.html", {"product": category})

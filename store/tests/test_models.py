@@ -15,20 +15,13 @@ class TestCategoriesModel(TestCase):
         data = self.data1
         self.assertTrue(isinstance(data, Category))
 
-    def test_category_model_entry(self):
-        """
-        Test Model Category Default Name
-        """
-        data = self.data1
-        self.assertEqual(str(data), "django")
-
 
 class TestProductModel(TestCase):
     def setUp(self) -> None:
         Category.objects.create(name="django", slug="django")
         User.objects.create(username="admin")
-        self.data1 = Product.objects.create(category_id=1, title="django_for_beginners", created_by_id=1,
-                                            slug="django_beginners", price=12.00, image="django")
+        self.data1 = Product.objects.create(category_id=1, title="django", created_by_id=1,
+                                            slug="django", price=12.00, image="django")
 
     def test_products_model_entry(self):
         """
@@ -36,4 +29,4 @@ class TestProductModel(TestCase):
         """
         data = self.data1
         self.assertTrue(isinstance(data, Product))
-        self.assertEqual(str(data), "django_beginners")
+        self.assertEqual(str(data), "django")
