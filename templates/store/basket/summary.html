@@ -2,50 +2,78 @@
 {% load static %}
 {% block title %} Basket Summary {% endblock %}
 {% block content %}
-        <main class="pt-5">
-                <div class="container-fluid">
-                        <h1 class="h5"> Shopping Basket </h1>
-                        {% for item in basket %}
-                        {% with product=item.product %}
-                        <div class="row mb-4 border">
-                                <div class="col-md-3 col-lg-2 order-md-first bg-light">
-                                        <img class="img-fluid mx-auto d-block" width="200px" src="{{ product.image.url }}">
-                                </div>
-                                <div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
-                                        <a href="" class="text-decoration-none text-dark"></a>
-                                        <div class="border">
-                                                <div class="col border-bottom">
-                                                        <div class="row p-3">
-                                                                <div class="col-6">Hardback Book</div>
-                                                                <div class="col-6 text-end"><span class="h6 fw-bold">${{ product.price }}</span></div>
-                                                        </div>
+<main class="pt-5">
+        <div class="container-fluid">
+                <h1 class="h5"> Shopping Basket </h1>
+                {% for item in basket %}
+                {% with product=item.product %}
+                <div class="row mb-4 border">
+                        <div class="col-md-3 col-lg-2 order-md-first bg-light">
+                                <img class="img-fluid mx-auto d-block" width="200px" src="{{ product.image.url }}">
+                        </div>
+                        <div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
+                                <a href="" class="text-decoration-none text-dark"></a>
+                                <div class="border">
+                                        <div class="col border-bottom">
+                                                <div class="row p-3">
+                                                        <div class="col-6">Hardback Book</div>
+                                                        <div class="col-6 text-end"><span class="h6 fw-bold">
+                                                                ${{product.price }}</span></div>
                                                 </div>
-                                                <div class="col">
-                                                        <div class="row p-3">
-                                                                <div class="col-12">
-                                                                        <label for="select">Qty</label>
-                                                                        <select name="" id="select">
-                                                                                <option selected>
-                                                                                        {{item.quantity}}
-                                                                                </option>
-                                                                                <option value="">1</option>
-                                                                                <option value="">2</option>
-                                                                                <option value="">3</option>
-                                                                                        <option value="">4</option>
-                                                                                </select>
-                                                                                <button type="button" class="btn btn-outline-secondary btn-sm" id="add-button" value="{{product.id}}">Update</button>
-                                                                                <button type="button" class="btn btn-outline-secondary btn-sm" id="delete-button" value="{{product.id}}">Delete</button>
-                                                                        </div>
-                                                                </div>
+                                        </div>
+                                        <div class="col">
+                                                <div class="row p-3">
+                                                        <div class="col-12">
+                                                                <label for="select">Qty</label>
+                                                                <select name="" id="select">
+                                                                        <option selected>
+                                                                                {{item.quantity}}
+                                                                        </option>
+                                                                        <option value="">1</option>
+                                                                        <option value="">2</option>
+                                                                        <option value="">3</option>
+                                                                        <option value="">4</option>
+                                                                </select>
+                                                                <button type="button"
+                                                                        class="btn btn-outline-secondary btn-sm"
+                                                                        id="add-button"
+                                                                        value="{{product.id}}">Update</button>
+                                                                <button type="button"
+                                                                        data-index="{{product.id}}"
+                                                                        class="btn btn-outline-secondary btn-sm delete-button"
+                                                                        value="{{product.id}}">Delete</button>
                                                         </div>
                                                 </div>
                                         </div>
                                 </div>
                         </div>
-                        {% endwith %}
-                        {% endfor %}
-                        <div class="col-12 text-end"></div>
-                        <div class="h6 fw-bold">Sub Total: $<span id="subtotal">{{basket.get_total_price}}</span></div>
                 </div>
-        </main>
+        </div>
+        {% endwith %}
+        {% endfor %}
+        <div class="col-12 text-end"></div>
+        <div class="h6 fw-bold">Total Price: $<span id="subtotal">{{basket.get_total_price}}</span></div>
+        </div>
+</main>
+<script>
+        $(".delete-button").click(function (e) { 
+                e.preventDefault();
+                $.ajax({
+                        type: "POST",
+                        url: "{% url 'basket:basket_delete' %}",
+                        data: {
+                                productid: $(this).data('index'),
+                                csrfmiddlewaretoken: "{{csrf_token}}",
+                                action: "post"
+                        },
+                        success: function (json) {
+                                location.reload();
+                        },
+                        error: function (xhr, errmsg, err) {
+                                alert(errmsg, err)
+                        }
+                });
+                
+        });
+</script>
 {% endblock %}

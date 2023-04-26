@@ -6,7 +6,6 @@ from .basket import Basket
 
 def basket_summary(request):
     basket = Basket(request)
-    print(basket)
     return render(request, "store/basket/summary.html", {"basket": basket})
 
 
@@ -19,4 +18,12 @@ def basket_add(request):
         basketqty = basket.__len__()
         basket.add(product=product, qty=product_qty)
         response = JsonResponse({"qty": basketqty})
+        return response
+
+def basket_delete(request):
+    basket = Basket(request)
+    if request.POST.get("action") == "post":
+        product_id = int(request.POST.get("productid"))
+        basket.delete(product=product_id)
+        response = JsonResponse({"success": True})
         return response
