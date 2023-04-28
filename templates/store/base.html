@@ -8,8 +8,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{% static 'store/css/bootstrap.min.css' %}" rel="stylesheet">
-    <script src="{% static 'store/js/jquery.min.3.3.1.js' %}"></script>
-    <script src="{% static 'store/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous" ></script>
+    <script src="{% static 'store/js/jquery-3.6.4.js' %}" ></script>
+    <script src="{% static 'store/js/bootstrap.bundle.min.js' %}"></script>
     <title>Home</title>
 </head>
 <body>
@@ -40,24 +40,29 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
       </ul>
-      <a type="button" role="button" href="{% url 'basket:basket_summary' %}" class="btn btn-outline-secondary">
+      <a type="button" role="button" href="{% url 'basket:basket_summary' %}" 
+        class="btn btn-outline-secondary">
 
 
         {% with total_qty=basket|length  %}
-        <div id="basket-qty" class="d-inline-flex">
-            {% if total_qty > 0 %}
-              {{ total_qty }}
-            {% else %}
-                0
-            {% endif %}
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
-          <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-        </svg>
+          <div id="basket-qty" class="d-inline-flex">
+              {% if total_qty > 0 %}
+                {{ total_qty }}
+              {% else %}
+                  0
+              {% endif %}
+          </div>
+        {% endwith %}
+          <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4H5.62563C6.193 4 6.47669 4 6.70214 4.12433C6.79511 4.17561 6.87933 4.24136 6.95162 4.31912C7.12692 4.50769 7.19573 4.7829 7.33333 5.33333L7.51493 6.05972C7.616 6.46402 7.66654 6.66617 7.74455 6.83576C8.01534 7.42449 8.5546 7.84553 9.19144 7.96546C9.37488 8 9.58326 8 10 8V8" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 17H7.55091C7.40471 17 7.33162 17 7.27616 16.9938C6.68857 16.928 6.28605 16.3695 6.40945 15.7913C6.42109 15.7367 6.44421 15.6674 6.49044 15.5287V15.5287C6.54177 15.3747 6.56743 15.2977 6.59579 15.2298C6.88607 14.5342 7.54277 14.0608 8.29448 14.0054C8.3679 14 8.44906 14 8.61137 14H14" stroke="#33363F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14.5279 14H10.9743C9.75838 14 9.15042 14 8.68147 13.7246C8.48343 13.6083 8.30689 13.4588 8.15961 13.2825C7.81087 12.8652 7.71092 12.2655 7.51103 11.0662C7.30849 9.85093 7.20722 9.2433 7.44763 8.79324C7.54799 8.60536 7.68722 8.44101 7.85604 8.31113C8.26045 8 8.87646 8 10.1085 8H16.7639C18.2143 8 18.9395 8 19.2326 8.47427C19.5257 8.94854 19.2014 9.59717 18.5528 10.8944L18.1056 11.7889C17.5677 12.8647 17.2987 13.4026 16.8154 13.7013C16.3321 14 15.7307 14 14.5279 14Z" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="17" cy="20" r="1" fill="#33363F"/>
+            <circle cx="9" cy="20" r="1" fill="#33363F"/>
+          </svg>
         Basket
       </a>
-        {% endwith %}
     </div>
   </div>
 </nav>

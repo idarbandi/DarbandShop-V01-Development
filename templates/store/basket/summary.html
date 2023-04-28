@@ -7,12 +7,12 @@
                 <h1 class="h5"> Shopping Basket </h1>
                 {% for item in basket %}
                 {% with product=item.product %}
-                <div class="row mb-4 border">
+                <div class="row mb-4 border product-item" data-index="{{product.id}}">
                         <div class="col-md-3 col-lg-2 order-md-first bg-light">
-                                <img class="img-fluid mx-auto d-block" width="200px" src="{{ product.image.url }}">
+                                <img class="img-fluid mx-auto d-block" width="120px" src="{{ product.image.url }}">
                         </div>
                         <div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
-                                <a href="" class="text-decoration-none text-dark"></a>
+                                <a href="{{product.get_absolute_url}}" class="text-decoration-none text-dark"></a>
                                 <div class="border">
                                         <div class="col border-bottom">
                                                 <div class="row p-3">
@@ -56,24 +56,24 @@
         </div>
 </main>
 <script>
-        $(".delete-button").click(function (e) { 
+        $(document).on("click", ".delete-button", function (e) {
+                var period = $(this).data('index');
                 e.preventDefault();
                 $.ajax({
                         type: "POST",
                         url: "{% url 'basket:basket_delete' %}",
                         data: {
-                                productid: $(this).data('index'),
+                                productid: $(this).data("index"),
                                 csrfmiddlewaretoken: "{{csrf_token}}",
-                                action: "post"
+                                action: 'post'
                         },
                         success: function (json) {
-                                location.reload();
+                                $('.product-item[data-index="' + period +'"]').remove();
                         },
-                        error: function (xhr, errmsg, err) {
-                                alert(errmsg, err)
+                        error: function (xhr, err, errMsg) {
+                                alert("an error has occured")
                         }
                 });
-                
-        });
+        })
 </script>
 {% endblock %}

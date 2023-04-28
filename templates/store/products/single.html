@@ -51,7 +51,7 @@
   </main>
 </div>
 <script>
-  $("#add-button").click(function (e) {
+  $(document).on("click", "#add-button", function (e) {
     e.preventDefault();
     $.ajax({
       type: "POST",
@@ -62,10 +62,10 @@
         csrfmiddlewaretoken: "{{csrf_token}}",
         action: "post"
       },
-      success: function (response) {
-        $("basket-qty").attr("innerText", response.qty);
+      success: function (json) {
+        document.getElementById("basket-qty").innerHTML = json.qty;
       }
     });
-  });
+  })
 </script>
 {% endblock %}

@@ -21,8 +21,7 @@ class Basket():
         """
         product_id = product.id
         if product_id not in self.basket:
-            self.basket[product_id] = {
-                "price": str(product.price), "qty": int(qty)}
+            self.basket[product_id] = {"price": str(product.price), "qty": int(qty)}
         self.save()
 
     def __len__(self):
