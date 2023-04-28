@@ -17,15 +17,14 @@
                                         <div class="col border-bottom">
                                                 <div class="row p-3">
                                                         <div class="col-6">Hardback Book</div>
-                                                        <div class="col-6 text-end"><span class="h6 fw-bold">
-                                                                ${{product.price }}</span></div>
+                                                        <div class="col-6 text-end"><span class="h6 fw-bold">${{product.price }}</span></div>
                                                 </div>
                                         </div>
                                         <div class="col">
                                                 <div class="row p-3">
                                                         <div class="col-12">
                                                                 <label for="select">Qty</label>
-                                                                <select name="" id="select">
+                                                                <select name="" id="select{{product.id}}">
                                                                         <option selected>
                                                                                 {{item.quantity}}
                                                                         </option>
@@ -35,8 +34,9 @@
                                                                         <option value="">4</option>
                                                                 </select>
                                                                 <button type="button"
-                                                                        class="btn btn-outline-secondary btn-sm"
-                                                                        id="add-button"
+                                                                        class="btn btn-outline-secondary btn-sm update-button"
+                                                                        id="update-button"
+                                                                        data-index="{{product.id}}"
                                                                         value="{{product.id}}">Update</button>
                                                                 <button type="button"
                                                                         data-index="{{product.id}}"
@@ -56,6 +56,7 @@
         </div>
 </main>
 <script>
+        // Delete Department
         $(document).on("click", ".delete-button", function (e) {
                 var period = $(this).data('index');
                 e.preventDefault();
@@ -68,7 +69,33 @@
                                 action: 'post'
                         },
                         success: function (json) {
-                                $('.product-item[data-index="' + period +'"]').remove();
+                                $('.product-item[data-index="' + period +'"]').remove()
+                                $("#subtotal").html(json.subtotal)
+                                $("#basket-qty").html(json.qty);
+                        },
+                        error: function (xhr, err, errMsg) {
+                                alert("an error has occured")
+                        }
+                });
+        })
+
+        // Update Department
+        $(document).on("click", ".update-button", function (e) {
+                var period = $(this).data('index');
+                e.preventDefault();
+                $.ajax({
+                        type: "POST",
+                        url: "{% url 'basket:basket_update' %}",
+                        data: {
+                                productid: $(this).data("index"),
+                                productqty: $('#select' + period + ' option:selected').text(),
+                                csrfmiddlewaretoken: "{{csrf_token}}",
+                                action: 'post'
+                        },
+                        success: function (json) {
+                                $("#subtotal").html(json.subtotal)
+                                $("#basket-qty").html(json.qty);
+                                
                         },
                         error: function (xhr, err, errMsg) {
                                 alert("an error has occured")
