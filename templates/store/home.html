@@ -3,30 +3,27 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-    <main>
-  <section class="py-5 text-center container">
-    <div class="row py-lg-3">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">No Rush , Take Your Time</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          <a href="#" class="btn btn-secondary my-2">Create an account</a>
-        </p>
+<main>
+  <div class="container">
+  <div class="alert alert-primary fw600 rounded-0 border-0 py-3" role="alert">
+    Icon Covid
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="album py-5">
+      <div class="pb-3">
+        <h1 class="h3"> Popular </h1>
       </div>
-    </div>
-  </section>
-
-  <div class="album py-5 bg-light">
-    <div class="container">
-    <div class="pb-3 h5">Newest Products</div>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
         {% for product in products %}
-          <div class="col">
-          <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{product.image.url}}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{product.title}}</text></img>
+        <div class="col">
+          <div class="card border-0">
+            <img class="img-fluid" width="100%" height="225" src="{{product.image.url}}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{product.title}}</text></img>
 
-            <div class="card-body">
-              <p class="card-text">{{product.description}}</p>
+            <div class="card-body px-0">
+              <p class="card-text">{{product.description | slice:":50"}}<a href="{{product.get_absolute_url}}" class="text-dark text-decoration-none">{{product.title | slice:":50"}}...</a></p>
+              <div class="fw-bold">$ {{product.price}}</div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a type="button" class="btn btn-sm btn-outline-secondary" href="{{product.get_absolute_url}}">View</a>
@@ -40,7 +37,7 @@
       </div>
     </div>
   </div>
-
+</div>
 </main>
 
 {% endblock %}
