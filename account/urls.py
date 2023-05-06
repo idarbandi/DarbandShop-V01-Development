@@ -12,5 +12,7 @@ urlpatterns = [
     path("activate/<slug:uidb64>/<slug:token>",
          views.account_activate, name="activate"),
     # user dashboard
-    path("dashboard/", views.dashboard, name="dashboard")
+    path("dashboard/", views.dashboard, name="dashboard"),
+    path("profile/edit/", views.edit_detail, name="edit_details"),
+    
 ]
