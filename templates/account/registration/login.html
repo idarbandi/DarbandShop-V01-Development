@@ -1,5 +1,6 @@
-{% extends '../../store/base.html' %} {% block title %} Login {% endblock %} {%
-block content %}
+{% extends '../../store/base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
 <style>
   .account-form input {
     border: 2px solid #ccc;
@@ -11,7 +12,6 @@ block content %}
     box-shadow: none;
   }
 </style>
-{% block content %}
 <div class="container-fluid">
   <div class="row no-gutter">
     <div class="col-md-12">
@@ -23,14 +23,7 @@ block content %}
                 {% csrf_token %}
                 <h3 class="mb-4 text-center">Sign In</h3>
                 {% if form.errors %}
-                <p>Please Correct The Following Errors :</p>
-                {% for field in form%}
-                    {% if field.errors %}
-                        <div class="alert alert-primary" role="alert">
-                            {{field.label}}: {{field.errors|striptags}}
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                <p class="alert alert-danger text-center">Something went Wrong Please Try Again !</p>
                 {% endif %}
 
                 <label class="form-label">{{ form.username.label }}</label>

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterationForm, UserEditForm
@@ -71,3 +71,13 @@ def edit_detail(request):
         user_form = UserEditForm(instance=request.user)
 
     return render(request, "account/user/edit_details.html", {"user_form": user_form})
+
+
+@login_required
+def delete_user(request):
+    user = UserBase.objects.get(user_name=request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect("account:delete_confirmation")
+
