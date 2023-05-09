@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-5 col-lg-4 order-md-last p-0 order-3">
                                 <div class="d-grid gap-2">
-                                        <a role="button" class="btn btn-success fw-bold">Checkout</a><!-- href="{ 'payment:basket' }" -->
+                                        <a role="button" href="{% url 'payment:basket' %}" class="btn btn-success fw-bold">Checkout</a>
                                         <button class="btn btn-light" type="button">Save for Next Time</button>
                                 </div>
                         </div>
@@ -63,7 +63,7 @@
                                                                                         <option value="">4</option>
                                                                                 </select>
                                                                                 <a type="button" id="update-button" data-index="{{product.id}}" class="update-button text-decoration-none">Update</a>
-                                                                                <a type="button" id="delete-button" data-index="{{product.id}}" class="update-button text-decoration-none">Delete</a>
+                                                                                <a type="button" id="delete-button" data-index="{{product.id}}" class="delete-button text-decoration-none">Delete</a>
                                                                         </div>
                                                                 </div>
                                                         </div>

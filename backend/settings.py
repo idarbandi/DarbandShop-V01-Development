@@ -21,7 +21,8 @@ INSTALLED_APPS = [
     # Internal Apps
     "store",
     "basket",
-    "account"
+    "account",
+    "payment"
 ]
 
 MIDDLEWARE = [
