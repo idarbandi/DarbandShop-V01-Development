@@ -18,10 +18,9 @@ form.addEventListener("submit", function (ev) {
             action: "post"
         },
         success: function (json) {
-            console.log(json)
+            window.location.replace("http://127.0.0.1:8000/payment/orderplaced/");
         }
     });
 
 })
             
-// window.location.replace("http://127.0.0.1:8000/payment/orderplaced/")

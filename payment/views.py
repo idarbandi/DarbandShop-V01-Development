@@ -12,3 +12,10 @@ def BasketView(request):
     total = int(total_rp)
 
     return render(request, "payment/home.html")
+
+
+@login_required
+def order_placed(request):
+    basket = Basket(request)
+    basket.clear()
+    return render(request, "payment/orderplaced.html")

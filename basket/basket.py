@@ -72,5 +72,12 @@ class Basket():
             self.basket[product_id]['qty'] = qty
         self.save()
 
+    def clear(self):
+        """
+            Remove Basket From The Session
+        """
+        del self.session["skey"]
+        self.save()
+
     def save(self):
         self.session.modified = True
