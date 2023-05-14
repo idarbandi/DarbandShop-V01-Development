@@ -77,11 +77,11 @@
                     <hr class="my-4">
                     <h4 class="mb-3">Payment</h4>
                     <label for="card-element"> Credit or Debit Card </label>
-                    <div id="card-element" class="btn btn-primary w-100 fw-bold">
-                      <!-- payment elements will appear here -->
-                    </div>
+                    <textarea id="card-element" class="form-control w-100 fw-bold">
+                      {% comment %} <!-- payment elements will appear here --> {% endcomment %}
+                    </textarea>
+                    <button id="submit" class="btn btn-primary w-100 fw-bold"> Pay </button>
                 </div>
-                <button id="submit" class="btn btn-primary w-100 fw-bold" data-secret="{{ client_secret }}"> Pay </button>
                 </form>
             </div>
           </div>
@@ -94,7 +94,6 @@
   // Make Our CSRF Token Avaiable in JS File
   var CSRF_TOKEN = "{{ csrf_token }}"
 </script>
-<script src=" {% static 'store/js/stripe.js' %} "></script>
 <script src="{% static 'payment/index.js' %}" data-rel-js=""></script>
 
 {% endblock %}
