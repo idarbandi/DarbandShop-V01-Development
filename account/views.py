@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterationForm, UserEditForm
 from .token import account_activation_token
 from .models import UserBase
-
+from orders.views import user_orders
 
 def account_register(request):
     # if request.user.is_authenticated:
@@ -55,7 +55,8 @@ def account_activate(request, uidb64, token):
 
 @login_required
 def dashboard(request):
-    return render(request, "account/user/dashboard.html")
+    orders = user_orders(request)
+    return render(request, "account/user/dashboard.html", {"orders": orders})
     # {"section": "profile", "orders": orders}
 
 
