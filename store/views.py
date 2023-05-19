@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 
 
 def products(request):
-    products = Product.products.all()
+    products = Product.objects.all()
     return render(request, "store/home.html", {"products": products})
 
 

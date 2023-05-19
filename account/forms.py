@@ -21,7 +21,7 @@ class UserLoginForm(AuthenticationForm):
 
 class RegisterationForm(forms.ModelForm):
     user_name = forms.CharField(
-        label="Enter User Name", min_length=4, max_length=50, help_text="Required")
+        label="Enter User Name", min_length=4, max_length=50, help_text="Required", widget=forms.TextInput)
     email = forms.EmailField(max_length=100, help_text="Required", error_messages={
                              "Required": "Oops Please Provide an Email Address"})
     password = forms.CharField(label="Password", widget=forms.PasswordInput)

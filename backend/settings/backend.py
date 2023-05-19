@@ -3,9 +3,9 @@ import os
 
 import django.core.mail.backends.console
 
-from .local_settings import *
+from backend.local_settings import *
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 ALLOWED_HOSTS = []
 

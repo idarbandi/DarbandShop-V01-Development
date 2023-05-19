@@ -81,6 +81,7 @@ target/
 ### Django ###
 *.log
 *.pot
+_documentation
 *.pyc
 __pycache__/
 local_settings.py
