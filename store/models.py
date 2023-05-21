@@ -30,7 +30,7 @@ class Category(MPTTModel):
         verbose_name_plural = _("Categories")
 
     def get_absolute_url(self):
-        return reverse("store:catgory_list", args=[self.slug])
+        return reverse("store:category_list", args=[self.slug])
 
     def __str__(self):
         return self.name
@@ -71,7 +71,7 @@ class Product(models.Model):
         The Product Tabel Containing All Product Items
     """
     product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
-    category_name = models.ForeignKey(Category, on_delete=models.RESTRICT)
+    category = models.ForeignKey(Category, on_delete=models.RESTRICT)
     title = models.CharField(
         verbose_name=_("title"),
         help_text=_("required"),
@@ -108,6 +108,9 @@ class Product(models.Model):
     )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    
+    def get_absolute_url(self):
+        return reverse("store:product_detail", args=[self.slug])
 
     class Meta:
         ordering = ("-created_at", )

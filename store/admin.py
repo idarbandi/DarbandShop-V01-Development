@@ -1,5 +1,6 @@
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
+
 from .models import (
     Category,
     ProductSpecification,
@@ -14,7 +15,7 @@ admin.site.register(Category, MPTTModelAdmin)
 
 class ProductSpecificationInline(admin.TabularInline):
     model = ProductSpecification
-
+    
 
 @admin.register(ProductType)
 class ProductTypeAdmin(admin.ModelAdmin):

@@ -9,10 +9,14 @@
         "line-length=119"
     ],
     "[python]": {
-        "editor.codeActionOnSave": {
-            "source.organizeImports": true,
-        }
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
     },
+  },
+  "isort.args":["--profile", "black"],
+
     // Django Extension
     "files.associations": {
         "**/*.html": "html",
