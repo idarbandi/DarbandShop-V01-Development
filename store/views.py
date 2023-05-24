@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from .models import Category, Product
 from django.shortcuts import get_object_or_404, render
+
+from .models import Category, Product
 
 
 def products(request):

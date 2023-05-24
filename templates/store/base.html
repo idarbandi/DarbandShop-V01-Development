@@ -51,34 +51,44 @@
                 <span class="fs15 fw500"> Shop </span>
               </div>
             </button>
-            {% if user.is_authenticated %}
-              <a href="{% url 'account:logout' %}" type="button" class="btn btn-outline-secondary border-0 basket-btn">
-                <div>
-                 <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 16.5V19C15 20.1046 14.1046 21 13 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3H13C14.1046 3 15 3.89543 15 5V8.0625M11 12H21M21 12L18.5 9.5M21 12L18.5 14.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <span class="fs15 fw500">Logout</span>
-              </a>
-            {% else %}
-              <a href="{% url 'account:login' %}" type="button" class="btn btn-outline-secondary border-0 basket-btn">
-                <div>
-                  <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15 16.5V19C15 20.1046 14.1046 21 13 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3H13C14.1046 3 15 3.89543 15 5V8.0625M20 12L9 12M9 12L11.5 14.5M9 12L11.5 9.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div> 
-                <span class="fs15 fw500">Login</span>
-              </a>
-            {% endif %}
-            <a href="{% url 'account:dashboard' %}" role="button" type="button" class="btn btn-outline-secondary border-0 basket-btn">
-              <div>
-                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                  <svg width="16" height="16" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#020202;stroke-miterlimit:10;stroke-width:1.91px;}</style></defs><circle class="cls-1" cx="12" cy="7.25" r="5.73"/><path class="cls-1" d="M1.5,23.48l.37-2.05A10.3,10.3,0,0,1,12,13h0a10.3,10.3,0,0,1,10.13,8.45l.37,2.05"/></svg>
+            <div>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item dropdown">
+                    <a href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="nav-link dropdown-toggle text-reset">
+                      <div class="small text-muted">Hello
+                        
+                        {% if user.is_authenticated %}
+                            {{request.user.name}}
+                        {% else %}
+                          Login
+                        {% endif %}
+                          
+                      </div>
+                      <span class="fs15 fw500"> Account &amp; Lists</span>
+                    </a>
+                    <div class="dropdown-menu rounded-0">
+                      <div class="card border-0">
+                        <div class="card-body">
+                          <h6 class="card-title">
+                            <ul class="list-group list-group-flush dropdown-account-link">
+                              {% if user.is_authenticated %}
+                                  <a href="{% url 'account:dashboard' %}" class="text-reset small list-group-item b-0 pb-1 dropdown-account-link">Your Account</a>
+                                  <a href="#" class="text-reset small list-group-item b-0 pb-1 dropdown-account-link">Orders</a>
+                                  <a href="{% url 'account:logout' %}" class="text-reset small list-group-item b-0 pb-1 dropdown-account-link">Logout</a>
+                              {% else %}
+                                  <a href="" class="text-reset small list-group-item b-0 pb-1 dropsown-account-link">Login</a>
+                                Login
+                              {% endif %}
+                            </ul>
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <span class="fs15 fw500"> Account </span>
-            </a>
+            </div>
             <a href="{% url 'basket:basket_summary' %}" role="button" type="button" class="btn btn-outline-secondary border-0 basket-btn">
               {% with total_qty=basket|length  %}
                 <div id="basket-qty" class="basket-qty">
@@ -90,10 +100,9 @@
                 </div>
               {% endwith %}
               <div>
-                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4C10.4508 4 9.0799 5.00309 8.61115 6.47966L7.81104 9H8.49995H15.5H16.1889L15.3888 6.47966C14.92 5.00309 13.5491 4 12 4ZM18.2872 9L17.295 5.8745C16.5626 3.56734 14.4206 2 12 2C9.57933 2 7.43733 3.56734 6.7049 5.8745L5.71268 9H3.34789C2.00585 9 1.04464 10.2956 1.43384 11.58L2.55808 15.29L3.94596 19.87C4.32928 21.135 5.49529 22 6.81704 22H9.99995H14H17.1829C18.5046 22 19.6706 21.135 20.0539 19.87L21.4418 15.29L22.5661 11.58C22.9553 10.2956 21.9941 9 20.652 9H18.2872ZM6.4444 11H3.34789L4.25698 14H8.03615L7.62706 11H6.4444ZM9.64557 11L10.0547 14H13.9452L14.3543 11H9.64557ZM16.3728 11L15.9638 14H19.7429L20.652 11H17.5555H16.3728ZM19.1369 16H15.691L15.1456 20H17.1829C17.6235 20 18.0121 19.7117 18.1399 19.29L19.1369 16ZM13.1271 20L13.6725 16H10.3274L10.8728 20H13.1271ZM8.85434 20L8.30888 16H4.86304L5.86001 19.29C5.98778 19.7117 6.37646 20 6.81704 20H8.85434Z" fill="#000000"/>
-                  </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
               </div>
               <span class="fs15 fw500">Basket</span>
             </a>
@@ -108,6 +117,19 @@
                 </li>
                   {% endfor %}
               </ul>
+              <h6 class="card-title">
+                <ul class="list-group list-group-flush dropdown-account-link">
+                  
+                  {% if user.is_authenticated %}
+                    <a href="{% url 'account:dashboard' %}" class="dropdown-item">Your Account</a>
+                    <a href="#" class="dropdown-item">Orders</a>
+                    <a href="{% url 'account:logout' %}" class="dropdown-item">Logout</a>
+                  {% else %}
+                    <a href="{% url 'account:logout' %}" class="dropdown-item">Login</a>
+                  {% endif %}
+                    
+                </ul>
+              </h6>
             </div>
           </div>
           <form class="d-flex w-100 d-md-none">
