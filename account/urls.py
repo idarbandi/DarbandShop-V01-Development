@@ -23,5 +23,11 @@ urlpatterns = [
     path("profile/edit/", views.edit_detail, name="edit_details"),
     path("profile/delete_user/", views.delete_user, name="delete_user"),
     path("profile/delete_confirm/", TemplateView.as_view(
-        template_name="account/user/delete_confirm.html"), name="delete_confirmation")
+        template_name="account/user/delete_confirm.html"), name="delete_confirmation"),
+    # Addresses
+    path("addresses/", views.view_addresses, name="addresses"),
+    path("add_address/", views.add_address, name="add_address"),
+    path("addresses/edit/<slug:id>/", views.edit_addresses, name="edit_addresses"),
+    path("addresses/delete/<slug:id>/", views.delete_addresses, name="delete_addresses"),
+    path("addresses/set_default/<slug:id>/", views.set_default, name="set_default"),
 ]

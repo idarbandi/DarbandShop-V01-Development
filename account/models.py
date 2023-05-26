@@ -67,17 +67,17 @@ class Address(models.Model):
         Address Table
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    customer_id = models.ForeignKey(Customer, verbose_name=_("customer"), on_delete=models.CASCADE)
-    # Delivery Deatil
-    country = CountryField()
-    phone_number = models.CharField(max_length=15, blank=True)
+    customer = models.ForeignKey(Customer, verbose_name=_("customer"), on_delete=models.CASCADE)
+    full_name = models.CharField(_("Full Name"), max_length=150)
+    # Delivery Detail
+    phone = models.CharField(max_length=15, blank=True)
     post_code = models.CharField(max_length=12, blank=True)
-    address_line_1 = models.CharField(max_length=15, blank=True)
+    address_line = models.CharField(max_length=15, blank=True)
     address_line_2 = models.CharField(max_length=15, blank=True)
     town_city = models.CharField(max_length=15, blank=True)
     delivery_instructions = models.CharField(_("Delivery Instructions"), max_length=255)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     default = models.BooleanField(_("Default"), default=False)
     
     class Meta:

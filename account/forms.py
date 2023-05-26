@@ -1,10 +1,14 @@
 from django import forms
-from .models import Customer
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordResetForm,
+    SetPasswordForm,
+)
+
+from .models import Address, Customer
 
 
 class UserLoginForm(AuthenticationForm):
-
     username = forms.CharField(widget=forms.TextInput(
         attrs={"class": "form-control mb-3",
                "placeholder": "Username", "id": "login-username"}
@@ -20,10 +24,22 @@ class UserLoginForm(AuthenticationForm):
 
 
 class RegisterationForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["user_name"].widget.attrs.update(
+            {"class": "form-control mb-3", "placeholder": "Username"})
+        self.fields["email"].widget.attrs.update(
+            {"class": "form-control mb-3 w-75", "placeholder": "E-mail", "name": "email", "id": "email"})
+        self.fields["password"].widget.attrs.update(
+            {"class": "form-control mb-3", "placeholder": "Password"})
+        self.fields["password2"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Repeat Password"})
+
     user_name = forms.CharField(
         label="Enter User Name", min_length=4, max_length=50, help_text="Required", widget=forms.TextInput)
     email = forms.EmailField(max_length=100, help_text="Required", error_messages={
-                             "Required": "Oops Please Provide an Email Address"})
+        "Required": "Oops Please Provide an Email Address"})
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(
         label="Password Again", widget=forms.PasswordInput)
@@ -51,19 +67,13 @@ class RegisterationForm(forms.ModelForm):
             raise forms.ValidationError("Entered Email Has Already been Taken")
         return email
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["user_name"].widget.attrs.update(
-            {"class": "form-control mb-3", "placeholder": "Username"})
-        self.fields["email"].widget.attrs.update(
-            {"class": "form-control mb-3 w-75", "placeholder": "E-mail", "name": "email", "id": "email"})
-        self.fields["password"].widget.attrs.update(
-            {"class": "form-control mb-3", "placeholder": "Password"})
-        self.fields["password2"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "Repeat Password"})
-
 
 class UserEditForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['email'].required = True
 
     email = forms.EmailField(
         label="Accounts Email (Can Not Be Changed)", max_length=200, widget=forms.TextInput(
@@ -82,11 +92,6 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ("email", "first_name")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['first_name'].required = True
-        self.fields['email'].required = True
 
 
 class PwdResetForm(PasswordResetForm):
@@ -110,3 +115,32 @@ class PwdResetConfirmForm(SetPasswordForm):
     new_password2 = forms.CharField(
         label="Repeat Password", widget=forms.PasswordInput(
             attrs={"class": "form-control mb-3", "placeholder": "New Password", "id": "form-new-pass2"}))
+
+
+# Address
+class UserAddressForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['full_name'].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+        )
+        self.fields['phone'].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Phone"}
+        )
+        self.fields['address_line'].widget.attrs.update(
+            {"class": "form-control mb-2 account-form"}
+        )
+        self.fields['address_line_2'].widget.attrs.update(
+            {"class": "form-control mb-2 account-form"}
+        )
+        self.fields['town_city'].widget.attrs.update(
+            {"class": "form-control mb-2 account-form"}
+        )
+        self.fields['post_code'].widget.attrs.update(
+            {"class": "form-control mb-2 account-form"}
+        )
+
+    class Meta:
+        model = Address
+        fields = ['full_name', 'phone', 'post_code', 'address_line', 'address_line_2', 'town_city']

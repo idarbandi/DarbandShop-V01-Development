@@ -12,8 +12,8 @@ Dashboard {% endblock %} {% block content %}
     <hr />
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     <div class="col">
-      <a href="#" class="text-reset text-decoration-none"></a>
-      <div class="card mb-3">
+      <a href="{% url "account:addresses" %}" class="text-reset text-decoration-none" role="button" style="max-width:540px">
+        <div class="card mb-3">
         <div class="row g-0">
           <div class="col-2 position-relative">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gift" viewBox="0 0 16 16">
@@ -28,6 +28,7 @@ Dashboard {% endblock %} {% block content %}
         </div>
         </div>
       </div>
+      </a>
     </div>
     <div class="col">
       <a href="#" class="text-reset text-decoration-none"></a>

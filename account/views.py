@@ -1,15 +1,17 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import login, logout
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterationForm, UserEditForm
+from .forms import RegisterationForm, UserEditForm, UserAddressForm
 from .token import account_activation_token
-from .models import Customer
+from .models import Customer, Address
 from orders.views import user_orders
+
 
 def account_register(request):
     # if request.user.is_authenticated:
@@ -82,3 +84,50 @@ def delete_user(request):
     logout(request)
     return redirect("account:delete_confirmation")
 
+
+# Addresses
+
+@login_required
+def view_addresses(request):
+    addresses = Address.objects.filter(customer=request.user)
+    return render(request, 'account/addresses.html', {"addresses": addresses})
+
+
+@login_required
+def edit_addresses(request, id):
+    if request.method == "POST":
+        address = Address.objects.get(pk=id, customer=request.user)
+        address_form = UserAddressForm(instance=address, data=request.POST)
+        if address_form.is_valid():
+            address_form.save()
+            return HttpResponseRedirect(reverse("account:addresses"))
+    else:
+        address = Address.objects.get(pk=id, customer=request.user)
+        address_form = UserAddressForm(instance=address)
+    return render(request, 'account/edit_addresses.html', {"form": address_form})
+
+
+@login_required
+def delete_addresses(request, id):
+    address = Address.objects.filter(pk=id, customer=request.user).delete()
+    return HttpResponseRedirect(reverse("account:addresses"))
+
+
+@login_required
+def set_default(request, id):
+    Address.objects.filter(customer=request.user, default=True).update(default=False)
+    Address.objects.filter(pk=id, customer=request.user).update(default=True)
+    return redirect("account:addresses")
+
+@login_required
+def add_address(request):
+    if request.method == "POST":
+        address_form = UserAddressForm(data=request.POST)
+        if address_form.is_valid():
+            userless = address_form.save(commit=False)
+            userless.customer = request.user
+            address_form.save()
+            return HttpResponseRedirect(reverse("account:addresses"))
+    else:
+        address_form = UserAddressForm()
+    return render(request, "account/edit_addresses.html", {"form": address_form})
