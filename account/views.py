@@ -1,5 +1,5 @@
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.sites.shortcuts import get_current_site
@@ -7,9 +7,11 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import login, logout
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import RegisterationForm, UserEditForm, UserAddressForm
 from .token import account_activation_token
 from .models import Customer, Address
+from store.models import Product
 from orders.views import user_orders
 
 
@@ -115,9 +117,11 @@ def delete_addresses(request, id):
 
 @login_required
 def set_default(request, id):
-    Address.objects.filter(customer=request.user, default=True).update(default=False)
+    Address.objects.filter(customer=request.user,
+                           default=True).update(default=False)
     Address.objects.filter(pk=id, customer=request.user).update(default=True)
     return redirect("account:addresses")
+
 
 @login_required
 def add_address(request):
@@ -131,3 +135,23 @@ def add_address(request):
     else:
         address_form = UserAddressForm()
     return render(request, "account/edit_addresses.html", {"form": address_form})
+
+
+# Wishlist
+
+@login_required
+def add_to_wishlist(request, id):
+    product = get_object_or_404(Product, id=id)
+    if product.users_wishlist.filter(id=request.user.id).exists():
+        product.users_wishlist.remove(request.user)
+        messages.success(request, "Removed " + product.title + " From Your Wishlist")
+    else:
+        product.users_wishlist.add(request.user)
+        messages.success(request, "Added " + product.title + " To Your Wishlist")
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@login_required
+def wishlist(request):
+    products = Product.objects.filter(users_wishlist=request.user)
+    return render(request, "account/user_wishlist.html", {"wishlist": products})
