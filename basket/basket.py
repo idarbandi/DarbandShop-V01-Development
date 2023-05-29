@@ -1,6 +1,7 @@
 from _decimal import Decimal
 from django.conf import settings
 from store.models import Product
+from checkout.models import DeliveryOptions
 
 
 class Basket():
@@ -47,18 +48,21 @@ class Basket():
             item["price"] = Decimal(item['price'])
             item["total_price"] = item['price'] * item['qty']
             yield item
-
+            
+    def get_subtotal_price(self):
+        return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+    
     def get_total_price(self):
         """
             Get The Basket data and count the total qty price
         """
+        new_price = 0.00
         subtotal = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
-        if subtotal == 0:
-            shipping = Decimal(0.00)
-        else:
-            shipping = Decimal(11.50)
             
-        total = subtotal + Decimal(shipping)
+        if "purchase" in self.session:
+            new_price = DeliveryOptions.objects.get(id=self.session['purchase']['delivery_id']).delivery_price
+            
+        total = subtotal + Decimal(new_price)
         return total
 
     def delete(self, product):
@@ -78,6 +82,19 @@ class Basket():
         if product_id in self.basket:
             self.basket[product_id]['qty'] = qty
         self.save()
+
+    def basket_update_delivery(self, delivery_price=0):
+        subtotal = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values()) 
+        total = subtotal + Decimal(delivery_price)
+        return total  
+    
+    def get_delivery_price(self):
+        
+        new_price = 0.00
+        if "purchase" in self.session:
+            new_price = DeliveryOptions.objects.get(id=self.session['purchase']['delivery_id']).delivery_price
+        
+        return new_price
 
     def clear(self):
         """

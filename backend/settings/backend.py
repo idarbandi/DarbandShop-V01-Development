@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "account",
     "payment",
     "orders",
+    "checkout",
     # Third Parties
     "mptt"
 ]
