@@ -11,6 +11,15 @@ Options {% endblock %} {% block content %}
     <hr />
   </div>
   <div class="container">
+    
+    {% if messages %}
+      <div class="alert alert-warning" alert-{{message.tags}} role="alert">
+      {% for message in messages %}
+          {{message|safe}}
+      {% endfor %}
+    </div>
+    {% endif %}
+      
     <div class="row g-3">
       {% if deliveryoptions|length == 0 %}
       <div class="col-12">
@@ -43,7 +52,7 @@ Options {% endblock %} {% block content %}
         <a
           role="button"
           type="button"
-          href=""
+          href="{% url 'checkout:delivery_address' %}"
           class="btn btn-success fw-bold w-100"
           >Pay Securely</a
         >

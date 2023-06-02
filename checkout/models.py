@@ -26,7 +26,7 @@ class DeliveryOptions(models.Model):
     )
     delivery_method = models.CharField(
         choices=Delivery_Choices,
-        verbose_name=_("DElivery_methods"),
+        verbose_name=_("Delivery_methods"),
         help_text=_("Required"),
         max_length=255
     )

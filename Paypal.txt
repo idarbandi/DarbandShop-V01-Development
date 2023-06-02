@@ -1,0 +1,56 @@
+
+2923276342431
+Account Number
+325272063
+Routing Number
+
+Credit Card
+4032031566841507
+Credit Card Number
+VISA
+Credit Card Type
+06/2028
+Expiration Date
+
+PayPal
+USD 5,000.00
+
+
+
+
+
+
+
+________________________________________________________________________-----___________________________________________________________________________
+
+
+
+John
+First name:
+Doe
+Last name:
+
+sb-obot526126943@personal.example.com
+Email ID:
+
+2I>Dhw.R
+System Generated Password:
+Change password
+4084217284
+Phone Number:
+
+Note: If your system generated password is changed, your new password will not be displayed because of one-way password encryption.
+
+Personal
+Account type:
+PLTTXRXC2Q7KA
+Account ID:
+
+
+________________________________________________________________________-----___________________________________________________________________________
+
+App name : Darbandshop
+
+Client ID : AYbKjWoEP4DFEa56DVTdRMB1j1xNg4XMnTyRizjCP4z0d99m9tRvDJKmxsoso9NCzB8T3Cr9CzhTmcew
+
+Secret key 1 : EK1zSqDtGM0lBbI8sP5oPeubmKEI8HHeE1O5luSSH8OJqOKak4hdlo15bB-ig3SMcpGJaF4pbx_A34nd

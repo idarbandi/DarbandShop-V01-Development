@@ -26,6 +26,7 @@ urlpatterns = [
     path("profile/delete_user/", views.delete_user, name="delete_user"),
     path("profile/delete_confirm/", TemplateView.as_view(
         template_name="account/user/delete_confirm.html"), name="delete_confirmation"),
+    path("user_orders/", views.user_orders, name="user_orders"),
     # Addresses
     path("addresses/", views.view_addresses, name="addresses" ),
     path("add_address/", views.add_address, name="add_address"),

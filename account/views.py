@@ -13,6 +13,7 @@ from .token import account_activation_token
 from .models import Customer, Address
 from store.models import Product
 from orders.views import user_orders
+from orders.models import Order
 
 
 def account_register(request):
@@ -120,6 +121,11 @@ def set_default(request, id):
     Address.objects.filter(customer=request.user,
                            default=True).update(default=False)
     Address.objects.filter(pk=id, customer=request.user).update(default=True)
+    
+    previous_url = request.META.get('HTTP_REFERER')
+    if "delivery_address" in previous_url:
+        return redirect("checkout:delivery_address")
+    
     return redirect("account:addresses")
 
 
@@ -155,3 +161,9 @@ def add_to_wishlist(request, id):
 def wishlist(request):
     products = Product.objects.filter(users_wishlist=request.user)
     return render(request, "account/user_wishlist.html", {"wishlist": products})
+
+@login_required
+def user_orders(request):
+    user_id = request.user.id
+    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)
+    return render(request, "account/user/user_orders.html", {"orders": orders})
