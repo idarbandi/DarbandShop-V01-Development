@@ -38,9 +38,9 @@ Order Billing System For Generating Invoice
 
 ## Screenshots
 
-![App Screenshot](DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-08-25.png)
-![App Screenshot](DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-17-44.png)
-![App Screenshot](DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-20-17.png)
+![App Screenshot](media/Screenshots/Screenshot from 2023-06-06 17-08-25.png)
+![App Screenshot](media/Screenshots/Screenshot from 2023-06-06 17-17-44.png)
+![App Screenshot](media/Screenshots/Screenshot from 2023-06-06 17-20-17.png)
 
 ## 🚀 About Me
 I'm a full stack developer...
