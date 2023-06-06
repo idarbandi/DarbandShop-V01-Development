@@ -36,21 +36,11 @@ Payment Department Integrated With Paypal Payment Gateway API
 ```
 Order Billing System For Generating Invoice
 
-
-## Contributing
-
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
-
-
 ## Screenshots
 
-![App Screenshot](/home/darbandi/Desktop/Python/DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-08-25.png)
-![App Screenshot](/home/darbandi/Desktop/Python/DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-17-44.png)
-![App Screenshot](/home/darbandi/Desktop/Python/DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-20-17.png)
+![App Screenshot](DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-08-25.png)
+![App Screenshot](DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-17-44.png)
+![App Screenshot](DarbandShop/media/Screenshots/Screenshot from 2023-06-06 17-20-17.png)
 
 ## 🚀 About Me
 I'm a full stack developer...
