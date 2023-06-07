@@ -1,0 +1,7 @@
+{% autoescape off %}
+    Hi {{user.user_name}}
+        Your Acciunt Has Been Successfully Created. Please click On The Link
+        Bellow to Activate Your Account
+
+http://{{domain}}{% url 'account:activate' uidb64=uid token=token%}
+{% endautoescape %}

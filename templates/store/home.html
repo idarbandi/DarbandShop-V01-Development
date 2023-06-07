@@ -1,0 +1,53 @@
+{%extends './base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<main>
+  <div class="container">
+  <div class="alert alert-primary fw600 rounded-0 border-0 py-3" role="alert">
+    Icon Covid
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="album py-5">
+      <div class="pb-3">
+        <h1 class="h3"> Popular </h1>
+      </div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+        {% for product in products %}
+        <div class="col">
+          <div class="card border-0">
+
+
+          
+          {% for image in product.product_image.all %}
+            
+            {% if image.is_feature %}
+                <img class="img-fluid" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
+            {% endif %}
+              
+          {% endfor %}
+            
+
+            <div class="card-body px-0">
+              <p class="card-text">{{product.description | slice:":50"}}<a href="{{ product.get_absolute_url }}" class="text-dark text-decoration-none">{{product.title | slice:":50"}}...</a></p>
+              <div class="fw-bold">$ {{product.regular_price}}</div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ product.get_absolute_url }}">View</a>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "../../catalogue/base.html" %}
+{% block title %} Register {% endblock %}
+{% block content %}
+
+<style>
+    /* Account UI / Styling */
+
+.account-form input {
+    border: 2px solid #ccc;
+    height: calc(2em, .75rem + 2px);
+}
+
+.account-form input:focus{
+    border-color: #1497ff;
+    box-shadow: none;
+}
+
+</style>
+
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-12">
+            <div class="login d-flex align-item-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-4 col-md-2 mx-auto">
+                            <form action="." method="post" class="account-form p-4 rounded col-lg-10 mx-auto">
+                                                    {% csrf_token %}
+                                <h3 class="mb-2 font-weight-bold">Create an Account</h3>
+                                <p class="mb-4">its Free & Only Takes a Minute</p>
+                                {% if form.errors %}
+                                <p>Please Correct The Following Errors :</p>
+                                {% for field in form%}
+                                    {% if field.errors %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{field.label}}: {{field.errors|striptags}}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                                <label>{{ form.user_name.label }}<span class="text-muted small" > (Required) </span></label>
+                                {{ form.user_name }}
+                                <label>{{form.email.label}}<span class="text-muted small"> (Required) </span></label>
+                                {{ form.email }}
+                                <label>{{ form.password.label }}<span class="text-muted small"></span><small class="form-text text-muted mb-4 small"> at Least 8 Characters & 1 digit </small>{{ form.password }}</label>
+                                <label>{{ form.password.label }}<span class="text-muted small"></span><small class="form-text text-muted mb-4 small"> (Required) </small>{{ form.password2 }}</label>
+                                <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Register</button>
+                                <p class="text-center">
+                                    <a>Already have an account ? Login</a><!--  url 'account:login'-->
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends '../../catalogue/base.html' %}
+{% block title %} Edit Profile {% endblock %}
+{% block content %}
+    <style>
+    /* Account UI / Styling */
+
+    .account-form input {
+        border: 2px solid #ccc;
+        height: calc(2em, .75rem + 2px);
+    }
+
+    .account-form input:focus{
+        border-color: #1497ff;
+        box-shadow: none;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-12">
+            <div class="login d-flex align-item-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-7 mx-auto">
+                            <form enctype="multipart/form-data" action="." method="post" class="account-form p-4 rounded col-lg-10 mx-auto">
+                                                    {% csrf_token %}
+                                <h3 class="mb-2 font-weight-bold">Create an Account</h3>
+                                <p class="mb-4">its Free & Only Takes a Minute</p>
+                                
+                                
+                                {% if user_form.is_valid %}
+                                    <div class="alert alert-success" role="alert">
+                                        Details Successfully Updated !
+                                    </div>
+                                    <p class="small text-center pt-0">
+                                        <a href="{% url 'account:dashboard' %}"> Back To Dashboard </a>
+                                    </p>
+                                {% else %}
+                                    <h3> Change Your Details </h3>
+                                    <p> You Can Edit Your Account Using The Following Form: </p>
+                                {% endif %}
+                                {% if form.errors %}
+                                    <p>Please Correct The Following Errors :</p>
+                                    {% for field in form%}
+                                        {% if field.errors %}
+                                            <div class="alert alert-primary" role="alert">
+                                                {{field.label}}: {{field.errors|striptags}}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+
+                                <label class="small font-wight-bold">{{ user_form.email.label }}</label>
+                                    {{ user_form.email }}
+                                <label class="small font-wight-bold">{{ user_form.first_name.label }}</label>
+                                    {{ user_form.first_name }}
+                                <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Edit</button>
+                            </form>
+                            <form action="{% url 'account:delete_user' %}" method="post" class="account-form px-4">
+                                {% csrf_token %}
+                                <p class="h3 pt-4 font-weight-bold"> Delete Account </p>
+                                <p> Are You Sure You Want To Delete Your Account </p>
+                                <button class="btn btn-danger btn-block py-2 mb-4 mt-5 fw-bold w-100">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}

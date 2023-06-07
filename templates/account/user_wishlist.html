@@ -1,0 +1,43 @@
+{% extends '../catalogue/base.html' %} 
+{% block title %} Wishlist {% endblock %} 
+{% block content %}
+<div class="container">
+  <div class="col-12 mx-auto">
+    <h1 class="h3"> {{request.user}}'s Wishlist</h1>
+    <div>View & Edit Your Wishlist</div>
+    <hr />
+
+    {% if wishlist %} 
+    {% for product in wishlist %}
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-2">
+          {% for image in product.product_image.all %} 
+            {% if image.is_feature %}
+          <img
+            class="img-fluid d-block p-2"
+            src="{{ image.image.url }}"
+            alt="{{ image.image.alt_text }}"
+          />
+            {% endif %} 
+          {% endfor %}
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text">
+              <small class="text-muted">{{ product.regular_price }}</small>
+            </p>
+            <a href="{% url 'account:user_wishlist' product.id %}" class="btn btn-primary fw500 btn-sm">Remove</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %} 
+    {% else %}
+    <p class="card-text">No products have Been Added To Your Wishlist</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

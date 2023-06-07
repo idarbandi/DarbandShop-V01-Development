@@ -1,0 +1,42 @@
+{% extends '../catalogue/base.html' %}
+{% block title %} Edit Addresses {% endblock  %}
+
+{% block content %}
+    <div class="col-6 mx-auto">
+        <h1 class="h3">Create / Edit Adrresses</h1>
+        <div>Add a New Delivery <b>Address</b> and a Delivery Prefrences</div>
+        <hr/>
+        <form method="post" enctype="multipart/form-data" class="account_form">
+            
+            {% if form.errors %}
+                <div class="alert alert-primary" role="alert">
+                    Error: Please try Again
+                </div>
+            {% endif %}
+            {% csrf_token %}
+                <label class="small fwbold">{{ form.full_name.label }}</label>
+                    {{ form.full_name }}
+                <label class="small fwbold">{{ form.phone.label }}</label>
+                    {{ form.phone }}
+                <label class="small fwbold">{{ form.address_line.label }}</label>
+                    {{ form.address_line }}
+                <label class="small fwbold">{{ form.address_line_2.label }}</label>
+                    {{ form.address_line_2 }}
+                <label class="small fwbold">{{ form.town_city.label }}</label>
+                    {{ form.town_city }}
+                <label class="small fwbold">{{ form.post_code.label }}</label>
+                    {{ form.post_code }}
+                <button class="btn btn-primary btn-block py-2 mb-4 mt-4 fw-bold w-100" type="submit" value="submit" onclick="submitForm()" >
+                    Add Address
+                </button>
+        </form>
+    </div>
+    <script>
+        function submitForm() {
+            var form = document.getElementById("address_form")[0];
+            form.submit(); //submit the form
+            form.reset(); //reset the form
+            return false;//Prevent Refresh Page
+        }
+    </script>
+{% endblock  %}
