@@ -1,4 +1,4 @@
-from catalogue.models import Category
+from backend.apps.catalogue.models import Category
 
 
 def categories(request):

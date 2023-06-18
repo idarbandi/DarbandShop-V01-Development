@@ -1,1 +1,10 @@
 coverage run --omit="*/venv/*" manage.py test
+
+
+
+
+_________________________________ test commands _________________________________
+
+pytest -m 'views' -rp
+pytest -rp 
+coverage run -m pytest

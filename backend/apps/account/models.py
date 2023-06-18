@@ -2,11 +2,18 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 from django_countries.fields import CountryField
 import uuid
 
 
 class CustomAccountManager(BaseUserManager):
+    def validateEmail(self, email):
+        try:
+            validate_email(email)
+        except ValidationError:
+            raise ValueError(_("Provide an Email to Continue"))
 
     def create_superuser(self, email, name, password, **other_fields):
         other_fields.setdefault('is_staff', True)
@@ -22,7 +29,10 @@ class CustomAccountManager(BaseUserManager):
         return self.create_user(email, name, password, **other_fields)
 
     def create_user(self, email, name, password, **other_fields):
-        if not email:
+        if email:
+            email = self.normalize_email(email)
+            self.validateEmail(email)
+        else:
             raise ValueError(_('You Must Provide an Email Address'))
         email = self.normalize_email(email)
         user = self.model(name=name, email=email,
@@ -62,6 +72,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
             fail_silently=False
         )
 
+
 class Address(models.Model):
     """
         Address Table
@@ -79,11 +90,10 @@ class Address(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     default = models.BooleanField(_("Default"), default=False)
-    
+
     class Meta:
         verbose_name = _("Address")
         verbose_name_plural = _("Adresses")
-        
+
     def __str__(self):
-        return _("Address")
-    
+        return '{} Address'.format(self.full_name)

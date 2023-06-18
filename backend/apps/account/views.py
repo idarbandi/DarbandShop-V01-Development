@@ -17,8 +17,8 @@ from backend.apps.orders.models import Order
 
 
 def account_register(request):
-    # if request.user.is_authenticated:
-    #     return reverse("/")  # account:dashboard
+    if request.user.is_authenticated:
+        return redirect('account:dashboard')  # account:dashboard
     if request.method == "POST":
         registerForm = RegisterationForm(request.POST)
         if registerForm.is_valid():
@@ -38,6 +38,8 @@ def account_register(request):
             })
             user.email_user(subject=subject, message=message)
             return HttpResponse("Registred Successfully and Activation sent")
+        else:
+            return HttpResponse("Error handler Content", status=400)
     else:
         registerForm = RegisterationForm()
     return render(request, "account/registration/register.html", {"form": registerForm})
@@ -121,11 +123,11 @@ def set_default(request, id):
     Address.objects.filter(customer=request.user,
                            default=True).update(default=False)
     Address.objects.filter(pk=id, customer=request.user).update(default=True)
-    
+
     previous_url = request.META.get('HTTP_REFERER')
     if "delivery_address" in previous_url:
         return redirect("checkout:delivery_address")
-    
+
     return redirect("account:addresses")
 
 
@@ -138,6 +140,8 @@ def add_address(request):
             userless.customer = request.user
             address_form.save()
             return HttpResponseRedirect(reverse("account:addresses"))
+        else:
+            return HttpResponse("Error handler Content", status=400)
     else:
         address_form = UserAddressForm()
     return render(request, "account/edit_addresses.html", {"form": address_form})
@@ -161,6 +165,7 @@ def add_to_wishlist(request, id):
 def wishlist(request):
     products = Product.objects.filter(users_wishlist=request.user)
     return render(request, "account/user_wishlist.html", {"wishlist": products})
+
 
 @login_required
 def user_orders(request):
